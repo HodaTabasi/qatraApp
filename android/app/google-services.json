@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "284333063897",
+    "firebase_url": "https://qaterhapp-default-rtdb.firebaseio.com",
+    "project_id": "qaterhapp",
+    "storage_bucket": "qaterhapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284333063897:android:72a52cd1f99019e88b88c8",
+        "android_client_info": {
+          "package_name": "com.app.qatra_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284333063897-hr78foi24fs054mlj6djatr3ua5smvq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.qatra_app",
+            "certificate_hash": "d9e2e204bfe9f25a23cf8e42769af4aa0420c582"
+          }
+        },
+        {
+          "client_id": "284333063897-kl7jm3n9t8s3ujn94pl1mtsu60lql4qo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.qatra_app",
+            "certificate_hash": "10b4b8e6565f0679064e666f4ef51ba7709a52ee"
+          }
+        },
+        {
+          "client_id": "284333063897-k8g9qoivcip7ihh41cjq3ur642r5oi1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA65SMVwBaEmKpb_UWZRgNuF1b4ivqe0y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284333063897-k8g9qoivcip7ihh41cjq3ur642r5oi1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
