@@ -177,7 +177,7 @@ class _BodyState extends State<Body> {
           initialCameraPosition: CameraPosition(
             // target: LatLng(28.5904656, 35.3894415),
             target: LatLng(21.4227473, 39.8226583),
-            zoom: 8,
+            zoom: 5,
           ),
           markers: _markersMakkah,
           // markers: Provider.of<MainProvider>(context).mosqueType == 1

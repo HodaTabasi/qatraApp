@@ -11,6 +11,8 @@ class MainProvider extends ChangeNotifier {
   TextEditingController passwordController = TextEditingController();
   TextEditingController rePasswordController = TextEditingController();
 
+  bool isLoading = false;
+
   int mosqueId = 0;
   Data productDitails;
   int productId = 0;
@@ -22,6 +24,10 @@ class MainProvider extends ChangeNotifier {
   bool isReset = false;
   String smsCode ;
 
+  changeIsLoading(value){
+    isLoading = value;
+    notifyListeners();
+  }
   changeMosqueType(value) {
     mosqueType = value;
     notifyListeners();
