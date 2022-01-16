@@ -63,6 +63,8 @@ class _PhoneBodyState extends State<PhoneBody> {
         });
         SharedPrefrencesHelper.sharedPrefrencesHelper.saveLoginData(
             isLogin: true,
+            lname: loginjson.data.user.lastName,
+            fname: loginjson.data.user.firstName,
             token: loginjson.data.token.accessToken,
             password: Provider.of<MainProvider>(context, listen: false)
                 .passwordController

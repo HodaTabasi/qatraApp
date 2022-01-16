@@ -8,6 +8,7 @@ import 'package:qatra_app/components/order_item.dart';
 import 'package:qatra_app/helper/http_service.dart';
 import 'package:qatra_app/helper/providers/main_provider.dart';
 import 'package:qatra_app/helper/providers/order_provider.dart';
+import 'package:qatra_app/helper/shared_prefrences_helper.dart';
 import 'package:qatra_app/models/productDitailsResponse.dart';
 import 'package:qatra_app/screens/confirm_orders/components/selected_item.dart';
 import 'package:qatra_app/screens/payment/components/edit_text_layout.dart';
@@ -29,12 +30,17 @@ class _BodyState extends State<Body> {
 
   onPress() {
     Provider.of<OrderProvider>(context, listen: false).mosqueType = _value;
+    String fname = SharedPrefrencesHelper.sharedPrefrencesHelper.getData("fName");
+    String lname = SharedPrefrencesHelper.sharedPrefrencesHelper.getData("lName");
 
-    Get.offAll(() => SelectCard(),
-        transition: Transition.rightToLeft,
-        curve: Curves.easeInOutCubic,
-        duration: Duration(milliseconds: 550));
-
+    if(fname != null || lname != null){
+      Get.offAll(() => SelectCard(),
+          transition: Transition.rightToLeft,
+          curve: Curves.easeInOutCubic,
+          duration: Duration(milliseconds: 550));
+    } else {
+      addToastMessage(error: "تاكد من اكمال ملفك الشخصي", type: false);
+    }
     // NavigationService.navigationService.navigateTo(SelectCard.routeName);
   }
 

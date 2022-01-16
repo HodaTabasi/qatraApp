@@ -393,6 +393,8 @@ class FireAuthHelper {
       SharedPrefrencesHelper.sharedPrefrencesHelper.saveLoginData(
           isLogin: true,
           token: loginjson.data.token.accessToken,
+          lname: loginjson.data.user.lastName,
+          fname: loginjson.data.user.firstName,
           password: Provider.of<NewUserProvider>(context, listen: false)
               .passwordController
               .text);

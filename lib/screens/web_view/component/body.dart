@@ -95,46 +95,42 @@ class _BodyState extends State<Body> {
               var uri = Uri.parse(url);
               print("ggggggggg ${uri.queryParameters}");
               if (uri.queryParameters['message'] == "Succeeded!") {
-                String fname = SharedPrefrencesHelper.sharedPrefrencesHelper.getData("fName");
-                String lname = SharedPrefrencesHelper.sharedPrefrencesHelper.getData("lName");
 
-                if(fname != null || lname != null){
+                setState(() {
+                  isLoading = true;
+                });
+                PaymentResponse myjson = await HttpService.apiHelper.sendOrder(order);
+
+                if (myjson.status) {
+                  // progress.dismiss();
+                  Provider.of<OrderProvider>(context, listen: false).disposeController();
                   setState(() {
-                    isLoading = true;
+                    isLoading = false;
                   });
-                  PaymentResponse myjson = await HttpService.apiHelper.sendOrder(order);
 
-                  if (myjson.status) {
-                    // progress.dismiss();
-                    Provider.of<OrderProvider>(context, listen: false).disposeController();
-                    setState(() {
-                      isLoading = false;
-                    });
-
-                    Future.delayed(const Duration(milliseconds: 200), () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomDialogBox(
-                              title: "تمت عمليه الدفع بنجاح",
-                              // descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                              // text: "Yes",
-                            );
-                          });
-                    });
-                    Get.offAll(() => OrderScreen(),
-                        transition: Transition.rightToLeft,
-                        curve: Curves.easeInOutCubic,
-                        duration: Duration(milliseconds: 550));
-                  } else {
-                    setState(() {
-                      isLoading = false;
-                    });
-                    addToastMessage(error: myjson.message[0], type: false);
-                  }
-                }else {
-                  addToastMessage(error: "تاكد من اكمال ملفك الشخصي", type: false);
+                  Future.delayed(const Duration(milliseconds: 200), () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialogBox(
+                            title: "تمت عمليه الدفع بنجاح",
+                            // descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+                            // text: "Yes",
+                          );
+                        });
+                  });
+                  Get.offAll(() => OrderScreen(),
+                      transition: Transition.rightToLeft,
+                      curve: Curves.easeInOutCubic,
+                      duration: Duration(milliseconds: 550));
+                } else {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  addToastMessage(error: myjson.message[0], type: false);
                 }
+
+
               }else{
                 addToastMessage(error: uri.queryParameters['message'], type: false);
                 Get.offAll(() => GMap(),

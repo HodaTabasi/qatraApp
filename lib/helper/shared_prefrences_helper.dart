@@ -63,9 +63,11 @@ class SharedPrefrencesHelper {
     return sharedPrefrences.clear();
   }
 
-  saveLoginData({bool isLogin,String token,String password}){
+  saveLoginData({bool isLogin,String token,String password ,String fname,String lname}){
     setIsLogin(isLogin);
     setToken(token);
     setPassword(password);
+    setData("fName", fname);
+    setData("lName", lname);
   }
 }
