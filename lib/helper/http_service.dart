@@ -12,6 +12,7 @@ import 'package:qatra_app/models/PaymentResponse.dart';
 import 'package:qatra_app/models/ProductsResponse.dart';
 import 'package:qatra_app/models/ProfileResponse.dart';
 import 'package:qatra_app/models/ResetModel.dart';
+import 'package:qatra_app/models/SearchResponse.dart';
 import 'package:qatra_app/models/SettingResponse.dart';
 import 'package:qatra_app/models/User.dart';
 import 'package:qatra_app/models/loginjson.dart';
@@ -53,11 +54,13 @@ class HttpService {
     try {
       Response response = await _dio.post(baseUrl + 'user/auth/login',
           data: {'email': userName, 'password': password, 'login': loginType},
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          },));
-
+          options: Options(
+            headers: {'Accept': 'application/json'},
+            validateStatus: (status) {
+              print("fffffff $status");
+              return status < 500;
+            },
+          ));
 
       print(response.data);
       Loginjson registerResponse = Loginjson.fromJson(response.data);
@@ -74,10 +77,12 @@ class HttpService {
     try {
       Response response = await _dio.post(baseUrl + 'user/auth/login',
           data: {'phone': userName, 'password': password, 'login': loginType},
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {'Accept': 'application/json'},
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       Loginjson registerResponse = Loginjson.fromJson(response.data);
@@ -90,7 +95,8 @@ class HttpService {
     }
   }
 
-  Future<Loginjson> newUser(String email, String phone, String password, String country) async {
+  Future<Loginjson> newUser(
+      String email, String phone, String password, String country) async {
     try {
       Response response = await _dio.post(baseUrl + 'user/auth/register',
           data: {
@@ -99,10 +105,12 @@ class HttpService {
             'password': password,
             'country': country
           },
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffffs $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {'Accept': 'application/json'},
+              validateStatus: (status) {
+                print("fffffffs $status");
+                return status < 500;
+              }));
 
       print(response.data);
       Loginjson registerResponse = Loginjson.fromJson(response.data);
@@ -121,10 +129,12 @@ class HttpService {
           data: {
             'email': email,
           },
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {'Accept': 'application/json'},
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       ForgetPassResponse registerResponse =
@@ -138,22 +148,22 @@ class HttpService {
     }
   }
 
-  Future<ForgetPassResponse> SMSCodeVerification(String phone,String sms_verification) async {
+  Future<ForgetPassResponse> SMSCodeVerification(
+      String phone, String sms_verification) async {
     try {
-      Response response = await _dio.post(baseUrl + 'user/auth/send-sms-verification-code',
-          data: {
-            'phone': phone,
-            'sms_verification': sms_verification
-
-          },
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+      Response response =
+          await _dio.post(baseUrl + 'user/auth/send-sms-verification-code',
+              data: {'phone': phone, 'sms_verification': sms_verification},
+              options: Options(
+                  headers: {'Accept': 'application/json'},
+                  validateStatus: (status) {
+                    print("fffffff $status");
+                    return status < 500;
+                  }));
 
       print(response.data);
       ForgetPassResponse registerResponse =
-      ForgetPassResponse.fromJson(response.data);
+          ForgetPassResponse.fromJson(response.data);
       return registerResponse;
     } on DioError catch (e) {
       print(e.message);
@@ -167,14 +177,16 @@ class HttpService {
     try {
       Response response = await _dio.post(baseUrl + 'user/auth/reset-password',
           data: model.toJson(),
-          options: Options(headers: {'Accept': 'application/json'},validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {'Accept': 'application/json'},
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       ForgetPassResponse registerResponse =
-      ForgetPassResponse.fromJson(response.data);
+          ForgetPassResponse.fromJson(response.data);
       return registerResponse;
     } on DioError catch (e) {
       print(e.message);
@@ -185,27 +197,26 @@ class HttpService {
   }
 
   Future<HomeResponse> getMosque(context) async {
-    print("gggggg "+SharedPrefrencesHelper.sharedPrefrencesHelper.getToken());
+    print("gggggg " + SharedPrefrencesHelper.sharedPrefrencesHelper.getToken());
     try {
       Response response = await _dio.get(baseUrl + 'user/home',
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            if(status != 200){
-              SharedPrefrencesHelper.sharedPrefrencesHelper.clear();
-              Navigator.of(context)
-                  .pushAndRemoveUntil(
-                CupertinoPageRoute(
-                    builder: (context) => Login()
-                ),
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                if (status != 200) {
+                  SharedPrefrencesHelper.sharedPrefrencesHelper.clear();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    CupertinoPageRoute(builder: (context) => Login()),
                     (_) => false,
-              );
-            }
-            return status < 500;
-          }));
+                  );
+                }
+                return status < 500;
+              }));
 
       print(response.data);
       HomeResponse homeResponse = HomeResponse.fromJson(response.data);
@@ -221,14 +232,16 @@ class HttpService {
   Future<products> getProducts() async {
     try {
       Response response = await _dio.get(baseUrl + 'user/products',
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       products productsResponse = products.fromJson(response.data);
@@ -245,14 +258,16 @@ class HttpService {
     try {
       Response response =
           await Dio().get(baseUrl + 'user/product/$productId/$mosqueId',
-              options: Options(headers: {
-                'Authorization':
-                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-                'Accept': 'application/json'
-              },validateStatus: (status) {
-                print("fffffff $status");
-                return status < 500;
-              }));
+              options: Options(
+                  headers: {
+                    'Authorization':
+                        'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                    'Accept': 'application/json'
+                  },
+                  validateStatus: (status) {
+                    print("fffffff $status");
+                    return status < 500;
+                  }));
 
       print(response.data);
       productDitails productsResponse = productDitails.fromJson(response.data);
@@ -268,14 +283,16 @@ class HttpService {
   Future<SettingResponse> getSetting() async {
     try {
       Response response = await Dio().get(baseUrl + 'user/settings',
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }),
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }),
           queryParameters: {
             "key": SharedPrefrencesHelper.sharedPrefrencesHelper.getType(),
           });
@@ -294,14 +311,16 @@ class HttpService {
   Future<OrderResponse> getMyOrders() async {
     try {
       Response response = await Dio().get(baseUrl + 'user/orders',
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       OrderResponse orderResponse = OrderResponse.fromJson(response.data);
@@ -317,14 +336,16 @@ class HttpService {
   Future<ProfileResponse> getMyProfile() async {
     try {
       Response response = await Dio().get(baseUrl + 'user/auth/me',
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
 
       print(response.data);
       ProfileResponse orderResponse = ProfileResponse.fromJson(response.data);
@@ -340,18 +361,17 @@ class HttpService {
   Future<Loginjson> updateProfile(User user) async {
     print(user.password);
     try {
-      Response response = await _dio.post(
-          baseUrl + 'user/auth/profile',
-        data: user.toJson(),
-        options: Options(
-          followRedirects: false,
-          // will not throw errors
-          validateStatus: (status) => true,
-          headers: {
-        'Authorization':
-        'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-        'Accept': 'application/json'}
-        ));
+      Response response = await _dio.post(baseUrl + 'user/auth/profile',
+          data: user.toJson(),
+          options: Options(
+              followRedirects: false,
+              // will not throw errors
+              validateStatus: (status) => true,
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              }));
 
       // Response response = await _dio.post(baseUrl + 'user/auth/profile',
       //     data: user.toJson(),
@@ -382,14 +402,16 @@ class HttpService {
           data: (order.receiverName.isEmpty || order.receiverName.isEmpty)
               ? order.toJsonWithout()
               : order.toJson(),
-          options: Options(headers: {
-            'Authorization':
-                'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
-            'Accept': 'application/json'
-          },validateStatus: (status) {
-            print("fffffff $status");
-            return status < 500;
-          }));
+          options: Options(
+              headers: {
+                'Authorization':
+                    'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+                'Accept': 'application/json'
+              },
+              validateStatus: (status) {
+                print("fffffff $status");
+                return status < 500;
+              }));
       print(response.data);
       PaymentResponse paymentResponse = PaymentResponse.fromJson(response.data);
       return paymentResponse;
@@ -415,8 +437,10 @@ class HttpService {
       print("ffffffffffff $initialLink");
 
       if (initialLink != null) {
-        SharedPrefrencesHelper.sharedPrefrencesHelper.setData("resetToken", initialUri?.pathSegments.last);
-        SharedPrefrencesHelper.sharedPrefrencesHelper.setData("email", initialUri?.queryParameters["email"]);
+        SharedPrefrencesHelper.sharedPrefrencesHelper
+            .setData("resetToken", initialUri?.pathSegments.last);
+        SharedPrefrencesHelper.sharedPrefrencesHelper
+            .setData("email", initialUri?.queryParameters["email"]);
         Get.offAll(() => ForgetPassword(), transition: Transition.leftToRight);
       }
 
@@ -425,6 +449,37 @@ class HttpService {
     } on PlatformException {
       // Handle exception by warning the user their action did not succeed
       // return?
+    }
+  }
+
+  Future<SearchResponse> getMosqueSearch(name, source, {nextPageToken}) async {
+    try {
+      Response response = await _dio.get(baseUrl + 'user/search-mosque',
+          queryParameters: {
+            "nextPageToken": nextPageToken,
+            "name": name,
+            "source": source,
+          },
+          options: Options(
+            headers: {
+              'Authorization':
+                  'Bearer ${SharedPrefrencesHelper.sharedPrefrencesHelper.getToken()}',
+              'Accept': 'application/json'
+            },
+            validateStatus: (status) {
+              print("fffffff $status");
+              return status < 500;
+            },
+          ));
+
+      print(response.data);
+      SearchResponse orderResponse = SearchResponse.fromJson(response.data);
+      return orderResponse;
+    } on DioError catch (e) {
+      print(e.message);
+      throw Exception(e.message);
+    } on Exception catch (e) {
+      print(e);
     }
   }
 }
