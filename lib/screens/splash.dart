@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qatra_app/helper/http_service.dart';
 import 'package:qatra_app/helper/shared_prefrences_helper.dart';
 import 'package:qatra_app/screens/home/gmap.dart';
@@ -35,11 +36,18 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             SharedPrefrencesHelper.sharedPrefrencesHelper.getLogin();
         isLoadong != null
             ? isLoadong
-                ? NavigationService.navigationService.navigateTo(GMap.routeName)
-                : NavigationService.navigationService
-                    .navigateTo(IntroScreen.routeName)
-            : NavigationService.navigationService
-                .navigateTo(IntroScreen.routeName);
+                ? Get.offAll(() => GMap(),
+                    transition: Transition.rightToLeft,
+                    curve: Curves.easeInOutCubic,
+                    duration: Duration(milliseconds: 550))
+                : Get.offAll(() => IntroScreen(),
+                    transition: Transition.rightToLeft,
+                    curve: Curves.easeInOutCubic,
+                    duration: Duration(milliseconds: 550))
+            : Get.offAll(() => IntroScreen(),
+                transition: Transition.rightToLeft,
+                curve: Curves.easeInOutCubic,
+                duration: Duration(milliseconds: 550));
         // animation.reverse();
       }
       // else if(status == AnimationStatus.dismissed){

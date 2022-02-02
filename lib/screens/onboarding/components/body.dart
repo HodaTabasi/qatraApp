@@ -46,8 +46,9 @@ class _BodyState extends State<Body> {
               onTap: () {
                 if (Provider.of<OnBoardProvider>(context, listen: false).activePage == 2){
                   Get.offAll(() => NewUser(),
-                      transition: Transition.leftToRight,
-                      duration: Duration(milliseconds: 900));
+                      transition: Transition.rightToLeft,
+                      curve: Curves.easeInOutCubic,
+                      duration: Duration(milliseconds: 550));
                 }
 
                 // NavigationService.navigationService.navigateTo(Login.routeName);
@@ -78,8 +79,9 @@ class _BodyState extends State<Body> {
                   onTap: () {
 
                     Get.offAll(() => NewUser(),
-                        transition: Transition.leftToRight,
-                        duration: Duration(microseconds: 1000));
+                        transition: Transition.rightToLeft,
+                        curve: Curves.easeInOutCubic,
+                        duration: Duration(milliseconds: 550));
 
                     // NavigationService.navigationService
                     //     .navigateTo(Login.routeName);

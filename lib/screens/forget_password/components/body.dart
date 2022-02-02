@@ -58,9 +58,11 @@ class _BodyState extends State<Body> {
 
       String countryCode = Provider.of<NewUserProvider>(context, listen: false)
           .countryCode;
-      model = ResetModel(phone: countryCode+SharedPrefrencesHelper.sharedPrefrencesHelper.getData("phone"),
+      model = ResetModel(phone: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("phone"),
           password: password,passwordConfirmation: rePassword,smsVerification: code,
           type: "mobile");
+
+      print(model.toString());
     }
     // final progress = ProgressHUD.of(context);
     response =

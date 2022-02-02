@@ -46,4 +46,9 @@ sms_verification:123456
     data['sms_verification'] = this.smsVerification;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'ResetModel{email: $email, token: $token, password: $password, passwordConfirmation: $passwordConfirmation, type: $type, phone: $phone, smsVerification: $smsVerification}';
+  }
 }
