@@ -23,8 +23,11 @@ class NewUserInput extends StatelessWidget {
               padding: MaterialStateProperty.all(EdgeInsets.all(10)),
               textStyle: MaterialStateProperty.all(
                   TextStyle(fontSize: 16, color: Colors.white))),
-          onPressed: () => Get.to(()=>NewUser(),transition: Transition.leftToRight),
-              // NavigationService.navigationService.navigateTo(NewUser.routeName),
+          onPressed: () => Get.offAll(() => NewUser(),
+              transition: Transition.rightToLeft,
+              curve: Curves.easeInOutCubic,
+              duration: Duration(milliseconds: 550)),
+          // NavigationService.navigationService.navigateTo(NewUser.routeName),
           child: Text(
             "تسجيل جديد",
             style: TextStyle(

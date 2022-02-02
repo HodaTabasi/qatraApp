@@ -281,18 +281,31 @@ class Order {
   @override
   String toString() {
     // return 'Order have _id: $_id, _orderNo: $_orderNo, _userId: $_userId, _mosqueType: $_mosqueType, _status: $_status, _quantity: $_quantity, _mosqueId: $_mosqueId, _receiverId: $_receiverId, _productId: $_productId, _driverId: $_driverId, _image: $_image, _createdAt: $_createdAt, _updatedAt: $_updatedAt, _finalPrice: $_finalPrice, _priceBeforeDiscount: $_priceBeforeDiscount, _priceAfterDiscount: $_priceAfterDiscount, _productName: $_productName, _productDescription: $_productDescription, _countCartoons: $_countCartoons, _mosqueName: $_mosqueName, _receiverName: $_receiverName, _receiverPhone: $_receiverPhone';
+    // return '''
+    //       $orderNo لقد قمت بارسال طلب  رقم
+    //           $productName  و سعر المنتج
+    //           $finalPrice اسم المنتج
+    //          سيتم ارساله الي المسجد الذي رقمه$mosqueId
+    //        واسمه $mosqueName
+    //        وبيانات المسجد في الموقع يحتوي على الاحداثيات
+    //        ونوع المسجد  $mosqueType
+    //        وحالة الطلب $status
+    //        تابع للمستخدم صاحب الرقم$userId
+    //        عدد البضاعة $quantity
+    //        رقم مستلم البضاعة $receiverPhone
+    // ''';
+
     return '''
-          $orderNo لقد قمت بارسال طلب  رقم 
-              $productName  و سعر المنتج 
-              $finalPrice اسم المنتج
-             سيتم ارساله الي المسجد الذي رقمه$mosqueId  
-           واسمه $mosqueName 
-           وبيانات المسجد في الموقع يحتوي على الاحداثيات 
-           ونوع المسجد  $mosqueType 
-           وحالة الطلب $status 
-           تابع للمستخدم صاحب الرقم$userId 
-           عدد البضاعة $quantity
-           رقم مستلم البضاعة $receiverPhone
+       |  $orderNo لقد قمت بارسال طلب بالرقم : 
+       |  $productName بمنتج تحت مسمى : 
+       |  $finalPrice ولقد كان السعر النهائي للمنتج : 
+       |  $mosqueName سيتم ارسال الطلب للمسجد صاحب الاسم : 
+       |  $mosqueId الذي يحمل الرقم : 
+       |  $mosqueType ونوع المسجد هكذا 1 تعبيرا لمصلى الرجال و 0 تعبيرا لمصلى نساء : 
+       |  $receiverPhone سيتم استقبال الطلب من قبل الشخص صاحب رقم هاتف : 
+       |  $userId الذي يحمل رقم مستخدم بالتسلسل :
+       |  $quantity  المنتجات تحمل عددا معينان وهو : 
+       |  $status والطلب تحت الحالة الاتيه : 
     ''';
   }
 }

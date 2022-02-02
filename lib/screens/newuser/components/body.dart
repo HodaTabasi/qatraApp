@@ -48,12 +48,14 @@ class _BodyState extends State<Body> {
     // NavigationService.navigationService.navigateTo(GMap.routeName);
   }
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Form(
-          key: Provider.of<NewUserProvider>(context, listen: false).formKey,
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Center(

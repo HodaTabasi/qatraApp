@@ -20,10 +20,7 @@ import 'package:qatra_app/screens/login/loginbyphone_screen.dart';
 import 'package:qatra_app/screens/select_forget_screen/chooser_way.dart';
 import 'package:qatra_app/utils/SizeConfig.dart';
 
-
-
 class Body extends StatefulWidget {
-
   @override
   _BodyState createState() => _BodyState();
 }
@@ -34,10 +31,12 @@ class _BodyState extends State<Body> {
   onPress() async {
     FocusScope.of(context).requestFocus(FocusNode());
 
-    String password =
-        Provider.of<MainProvider>(context,listen: false).passwordController.text;
-    String rePassword =
-        Provider.of<MainProvider>(context,listen: false).rePasswordController.text;
+    String password = Provider.of<MainProvider>(context, listen: false)
+        .passwordController
+        .text;
+    String rePassword = Provider.of<MainProvider>(context, listen: false)
+        .rePasswordController
+        .text;
 
     setState(() {
       isLoading = true;
@@ -46,33 +45,42 @@ class _BodyState extends State<Body> {
     ForgetPassResponse response;
     ResetModel model;
 
-    if(Provider.of<MainProvider>(context,listen: false).site == BestTutorSite.email){
+    if (Provider.of<MainProvider>(context, listen: false).site ==
+        BestTutorSite.email) {
+      model = ResetModel(
+          email: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("email"),
+          password: password,
+          passwordConfirmation: rePassword,
+          token: SharedPrefrencesHelper.sharedPrefrencesHelper
+              .getData("resetToken"),
+          type: "email");
+    } else if (Provider.of<MainProvider>(context, listen: false).site ==
+        BestTutorSite.mobile) {
+      String code = Provider.of<MainProvider>(context, listen: false).smsCode;
 
-      model = ResetModel(email: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("email"),
-    password: password,passwordConfirmation: rePassword,token: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("resetToken")
-    ,type: "email");
-
-    }else if(Provider.of<MainProvider>(context,listen: false).site == BestTutorSite.mobile){
-      String code = Provider.of<MainProvider>(context,
-          listen: false).smsCode;
-
-      String countryCode = Provider.of<NewUserProvider>(context, listen: false)
-          .countryCode;
-      model = ResetModel(phone: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("phone"),
-          password: password,passwordConfirmation: rePassword,smsVerification: code,
+      String countryCode =
+          Provider.of<NewUserProvider>(context, listen: false).countryCode;
+      model = ResetModel(
+          phone: SharedPrefrencesHelper.sharedPrefrencesHelper.getData("phone"),
+          password: password,
+          passwordConfirmation: rePassword,
+          smsVerification: code,
           type: "mobile");
 
       print(model.toString());
     }
     // final progress = ProgressHUD.of(context);
-    response =
-    await HttpService.apiHelper.resetPassword(model);
+    response = await HttpService.apiHelper.resetPassword(model);
 
     // progress.show();
 
     if (response.status) {
-      Provider.of<MainProvider>(context,listen: false).passwordController.clear();
-      Provider.of<MainProvider>(context,listen: false).rePasswordController.clear();
+      Provider.of<MainProvider>(context, listen: false)
+          .passwordController
+          .clear();
+      Provider.of<MainProvider>(context, listen: false)
+          .rePasswordController
+          .clear();
       // progress.dismiss();
 
       setState(() {
@@ -108,67 +116,75 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Stack(
-        children: [
-          Form(
-            key: Provider.of<MainProvider>(context).resetFormKey,
-            child: Container(
-              margin: EdgeInsets.all(16),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(height: getProportionateScreenHeight(10)),
-                      Row(
-                        children: [
-                          Expanded(child: Container()),
-                          Icon(
+    return Stack(
+      children: [
+        Form(
+          key: Provider.of<MainProvider>(context).resetFormKey,
+          child: Container(
+            margin: EdgeInsets.all(16),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: getProportionateScreenHeight(10)),
+                    Row(
+                      children: [
+                        Expanded(child: Container()),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
                             Icons.arrow_forward_ios,
                             color: Color(0xff0D2784),
                             size: 24,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(40)),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          "نسيت كلمة المرور",
-                          style: TextStyle(
-                            fontSize: getProportionateScreenWidth(28),
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff00DAFD),
-                            height: 2.0,
-                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(40)),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        "نسيت كلمة المرور",
+                        style: TextStyle(
+                          fontSize: getProportionateScreenWidth(28),
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff00DAFD),
+                          height: 2.0,
                         ),
                       ),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      PassInput("كلمة المرور الجديدة ",Provider.of<MainProvider>(context).passwordController),
-                      SizedBox(height: getProportionateScreenHeight(30)),
-                      PassInput("تاكيد كلمة المرور ",Provider.of<MainProvider>(context).rePasswordController),
-                      SizedBox(height: getProportionateScreenHeight(40)),
-                      BtnLayout("ارسال", () => onPress()),
-                      SizedBox(height: getProportionateScreenHeight(5)),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(30)),
+                    PassInput("كلمة المرور الجديدة ",
+                        Provider.of<MainProvider>(context).passwordController),
+                    SizedBox(height: getProportionateScreenHeight(30)),
+                    PassInput(
+                        "تاكيد كلمة المرور ",
+                        Provider.of<MainProvider>(context)
+                            .rePasswordController),
+                    SizedBox(height: getProportionateScreenHeight(40)),
+                    BtnLayout("ارسال", () => onPress()),
+                    SizedBox(height: getProportionateScreenHeight(5)),
+                  ],
                 ),
               ),
             ),
           ),
-          isLoading
-              ? Align(
-            alignment: Alignment.center,
-            child: Container(
-              color: Colors.black.withOpacity(0.4),
-              child: SpinKitPouringHourGlassRefined(
-                color: Color(0xff00DAFD),
-                size: 50.0,
-              ),
-            ),
-          )
-              : Center()
-        ],
-      );
+        ),
+        isLoading
+            ? Align(
+                alignment: Alignment.center,
+                child: Container(
+                  color: Colors.black.withOpacity(0.4),
+                  child: SpinKitPouringHourGlassRefined(
+                    color: Color(0xff00DAFD),
+                    size: 50.0,
+                  ),
+                ),
+              )
+            : Center()
+      ],
+    );
   }
 }

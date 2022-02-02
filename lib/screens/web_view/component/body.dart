@@ -119,7 +119,7 @@ class _BodyState extends State<Body> {
                           );
                         });
                   });
-                  Get.offAll(() => OrderScreen(),
+                  Get.offAll(() => GMap(),
                       transition: Transition.rightToLeft,
                       curve: Curves.easeInOutCubic,
                       duration: Duration(milliseconds: 550));

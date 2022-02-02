@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:qatra_app/helper/providers/main_provider.dart';
 import 'package:qatra_app/screens/order/order_screen.dart';
@@ -28,8 +29,11 @@ class FloatBottom extends StatelessWidget {
               // setState(() {
               //   value = 0;
               // });
-              NavigationService.navigationService
-                  .navigateTo(ProfileScreen.routeName);
+              Get.offAll(() => ProfileScreen(),
+                  transition: Transition.rightToLeft,
+                  curve: Curves.easeInOutCubic,
+                  duration: Duration(milliseconds: 550));
+
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 16.r),
@@ -45,8 +49,11 @@ class FloatBottom extends StatelessWidget {
                 //
                 //   value = 1;
                 // });
-                NavigationService.navigationService
-                    .navigateToReplacement(OrderScreen.routeName);
+                Get.offAll(() => OrderScreen(),
+                    transition: Transition.rightToLeft,
+                    curve: Curves.easeInOutCubic,
+                    duration: Duration(milliseconds: 550));
+                ;
               },
               child: Image.asset(
                   Provider.of<MainProvider>(context, listen: false).floatValue == 1 ? "assets/order_f.png" : "assets/order_imag.png")),
@@ -56,8 +63,10 @@ class FloatBottom extends StatelessWidget {
               // setState(() {
               //   value = 2;
               // });
-              NavigationService.navigationService
-                  .navigateToReplacement(GMap.routeName);
+              Get.offAll(() => GMap(),
+                  transition: Transition.rightToLeft,
+                  curve: Curves.easeInOutCubic,
+                  duration: Duration(milliseconds: 550));
             },
             child: Container(
                 margin: EdgeInsets.only(right: 70.0.r),
